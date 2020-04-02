@@ -2,18 +2,11 @@ import React from 'react';
 import { connect } from "react-redux";
 import Search from './components/Search'
 import PersistentDrawerRight from './components/drawer'
-import Image from './img1.jpg'
 import './App.css';
-<<<<<<< Updated upstream
-
-class App extends React.Component{
-  render(){
-    return(
-      <div>
-        <p>Hello</p>
-      </div>
-=======
 import TableView from './components/TableView'
+import { ThemeProvider } from '@material-ui/core/styles'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import theme from './theme'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 const styles = {
   paperContainer: {
@@ -35,7 +28,6 @@ class App extends React.Component {
       {/* </PersistentDrawerRight> */}
 
     </ThemeProvider>
->>>>>>> Stashed changes
     )
   }
 }
