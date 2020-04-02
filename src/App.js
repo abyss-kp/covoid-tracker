@@ -10,7 +10,7 @@ import theme from './theme'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 const styles = {
   paperContainer: {
-      backgroundImage: `url(${Image})`
+      // backgroundImage: `url(${Image})`
   }
 };
 class App extends React.Component {
