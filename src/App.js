@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
-import Search from './components/Search'
+import Search from './components/not used/Search'
+import IndiaView from './components/IndiaView'
 import PersistentDrawerRight from './components/drawer'
 import './App.css';
 import TableView from './components/TableView'
@@ -21,8 +22,9 @@ class App extends React.Component {
       <Router history={Router.browserHistory}>
       <PersistentDrawerRight/>
        <Switch>
-        <Route exact path="/Search" component={Search} />
-        <Route  path="/" component={TableView} />
+        <Route  path="/" component={IndiaView} />
+        {/* <Route exact path="/IndiaView" component={IndiaView} /> */}
+        <Route exact path="/All" component={TableView} />
       </Switch>
       </Router>,
       {/* </PersistentDrawerRight> */}

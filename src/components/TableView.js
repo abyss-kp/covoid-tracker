@@ -68,7 +68,7 @@ export default function TableView() {
   /* const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10); */
   const [rows, setRows] = React.useState([]); 
-
+  const [time,setTime]=React.useState("")
  /*  const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -84,13 +84,17 @@ export default function TableView() {
      let rowData= data.data.rows.map(itm=>createData(
         itm.country, itm.total_cases, itm.new_cases, itm.total_deaths,itm.total_recovered,itm.active_cases,itm.serious_critical,itm.new_deaths
       ))
+      let time=new Date(data.data.last_update.split(",").join("")).toString()
       setRows(rowData)
+      setTime(time)
       });
   }, []); 
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
+          {!rows.length ?  <caption style={{"textAlignLast":'center'}}>Please wait!<b> Loading data 🔄🔄🔄</b></caption>:
+        <caption style={{"textAlignLast":'center'}} ><b>Updated at: </b> {time}</caption>}
           <TableHead>
             <TableRow>
               {columns.map((column) => (

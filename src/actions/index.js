@@ -15,3 +15,15 @@ export const setCountryCitYSelection = (countryCity) => ({
   type: SET_SELECTED_COUNTRY_CITY,
   payload: countryCity
 });
+
+export const SET_STATE_WISE_CITY_DATA="SET_STATE_WISE_CITY_DATA"
+export const setStateWiseData = (data) => ({
+  type: SET_STATE_WISE_CITY_DATA,
+  payload: data
+});
+
+export const SET_CASE_SERIES="SET_CASE_SERIES"
+export const setCaseSeries = (data) => ({
+  type: SET_CASE_SERIES,
+  payload: data
+});

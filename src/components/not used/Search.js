@@ -2,9 +2,9 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
 import { connect } from 'react-redux';
-import { setCountryList, setCountryCities, setCountryCitYSelection } from '../actions/index'
+import { setCountryList, setCountryCities, setCountryCitYSelection } from '../../actions/index'
 import axios from 'axios';
-import File from '../states.txt';
+import File from '../../states.txt';
 import readTextFile from './countryCities'
 import NovelCovid from 'novelcovid';
 
@@ -19,10 +19,6 @@ class Search extends React.Component {
     data: ""
   }
   getCity = async () => {
-    // let specificState = await NovelCovid.getState({ state: 'New York' })
-    // let specificState = await NovelCovid.getState({ state: 'Uttrakhand' });
-    // console.log(specificState)
-    // this.setState({ data: specificState })
     this.props.setCountryCitYSelection({ "country": this.state.country, "city": this.state.city })
   }
   async componentDidMount() {
@@ -34,7 +30,6 @@ class Search extends React.Component {
     this.props.setCountryCities(countryCityMap)
   }
   handleStateChange = (e, value) => {
-    console.log(value)
     this.setState({ city: value.title }, () => {
       this.getCity()
     })

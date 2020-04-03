@@ -1,4 +1,4 @@
-import { SET_COUNTRIES,SET_COUNTRY_CITIES ,SET_SELECTED_COUNTRY_CITY} from '../actions/index'
+import { SET_COUNTRIES,SET_COUNTRY_CITIES ,SET_SELECTED_COUNTRY_CITY,SET_STATE_WISE_CITY_DATA,SET_CASE_SERIES} from '../actions/index'
 import { combineReducers } from 'redux';
 
 const initialState = {
@@ -7,7 +7,9 @@ const initialState = {
   selectedCountryCity:{
     country:"",
     city:""
-  }
+  },
+  statewise:[],
+  caseSeries:[]
 }
 function rootReducer(state = initialState, action) {
   switch (action.type) {
@@ -25,6 +27,16 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         selectedCountryCity: action.payload
+      }
+      case SET_STATE_WISE_CITY_DATA:
+      return {
+        ...state,
+        statewise: action.payload
+      }
+      case SET_CASE_SERIES:
+      return {
+        ...state,
+        caseSeries: action.payload
       }
       default:
         return state

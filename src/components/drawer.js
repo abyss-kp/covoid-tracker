@@ -19,6 +19,8 @@ import TableChartIcon from '@material-ui/icons/TableChart';
 import SearchIcon from '@material-ui/icons/Search';
 import { withRouter } from "react-router-dom";
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import PublicIcon from '@material-ui/icons/Public';
+import HomeIcon from '@material-ui/icons/Home';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -133,9 +135,10 @@ const useStyles = makeStyles((theme) => ({
         </div>
         <Divider />
         <List>
-          {['All', 'Search'].map((text, index) => (
-            <ListItem button key={text} onClick={()=>props.history.push(text)}>
-              <ListItemIcon>{index % 2 === 0 ? <TableChartIcon /> : <SearchIcon />}</ListItemIcon>
+          {['All', 'India'].map((text, index) => (
+            <ListItem button key={text} onClick={()=>{props.history.push(text) 
+            handleDrawerClose()}}>
+              <ListItemIcon>{index % 2 === 0 ? <PublicIcon /> : <HomeIcon />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
