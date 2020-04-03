@@ -6,11 +6,10 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import StateSearch from './not used/StateSearch'
-import { render } from '@testing-library/react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { setCaseSeries,setStateWiseData } from '../actions/index'
 const columns = [
   { id: 'state', label: 'State', minWidth: 10, align: 'left', maxWidth: 50 },
   { id: 'confirmed', label: 'Total', minWidth: 80, align: 'center', },
@@ -40,10 +39,6 @@ const columns = [
   }
 ];
 
-// function createData(state, confirmed, deltaconfirmed, deaths, recovered, active) {
-//   return { state, confirmed, deltaconfirmed, deaths, recovered, active };
-// }
-
 const styles = (theme)=>({
   root: {
     width: '100%',
@@ -59,18 +54,28 @@ class IndiaView extends React.Component {
     time:"",
     statesData:{},
     selectedState:"India",
-    rows:[]
+    rows:[],
+    cities:[]
   }
   async componentDidMount(){
     //Get India's states data
     await axios.get(`https://api.covid19india.org/data.json`)
     .then(res => {
      let response=res.data
-    //  let rowsData=response.statewise.map(itm=>{
-    //    createData(itm.state, itm.confirmed, itm.deltaconfirmed, itm.deaths, itm.recovered, itm.active)
-    //  })
-     this.setState({time:response.key_values[0].lastupdatedtime,statesData:response.statewise,rows:response.statewise},()=>{
+     let state=response.statewise.filter(e=>(!["Dadra and Nagar Haveli",
+     "Daman and Diu","Lakshadweep","Meghalaya","Nagaland","Sikkim","Tripura"].includes(e.state)))
+     this.setState({time:response.key_values[0].lastupdatedtime,statesData:response.statewise,rows:state},()=>{
        //set data in redux
+       this.props.setCaseSeries(response.cases_time_series)
+     })
+    })
+    await axios.get(`https://api.covid19india.org/v2/state_district_wise.json`)
+    .then(res => {
+     let response=res.data
+     console.log(response)
+     this.setState({cities:response},()=>{
+      //  set data in redux
+       this.props.setStateWiseData(response)
      })
     })
   }
@@ -95,14 +100,14 @@ class IndiaView extends React.Component {
               ))}
               </TableRow>
             </TableHead>
-            <TableBody>
+            <TableBody >
                {this.state.rows.map((row,idx) => {
               return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={idx}>
+                <TableRow hover role="checkbox" tabIndex={-1} key={idx} >
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (
-                      <TableCell key={column.id} align={column.align}>
+                      <TableCell key={column.id} align={column.align} onClick={()=>this.props.history.push(`/State/${row.state}`)}>
                         {column.format && typeof value === 'number' ? column.format(value) : value}
                       </TableCell>
                     );
@@ -117,5 +122,11 @@ class IndiaView extends React.Component {
     );
   }
 }
-
-export default withStyles(styles)(IndiaView)
+function mapStateToProps(state) {
+  return state
+}
+const mapDispatchToProps = (dispatch) => ({
+  setCaseSeries: (data) => dispatch(setCaseSeries(data)),
+  setStateWiseData: (data) => dispatch(setStateWiseData(data))
+});
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(IndiaView))
