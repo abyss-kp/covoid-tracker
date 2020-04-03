@@ -136,7 +136,7 @@ const useStyles = makeStyles((theme) => ({
         <Divider />
         <List>
           {['All', 'India'].map((text, index) => (
-            <ListItem button key={text} onClick={()=>{props.history.push(text) 
+            <ListItem button key={text} onClick={()=>{props.history.push(`/${text}`) 
             handleDrawerClose()}}>
               <ListItemIcon>{index % 2 === 0 ? <PublicIcon /> : <HomeIcon />}</ListItemIcon>
               <ListItemText primary={text} />
