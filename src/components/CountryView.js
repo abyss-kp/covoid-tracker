@@ -8,6 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { connect } from 'react-redux';
+import {setCountryList} from '../actions/index'
 const columns = [
   { id: 'country', label: 'Country', minWidth: 10,align:'left',maxWidth:50 },
   { id: 'total_cases', label: 'Total', minWidth: 80 , align: 'center',},
@@ -76,6 +77,7 @@ const useStyles = makeStyles({
       let time=new Date(data.data.last_update.split(",").join("")).toString()
       setRows(rowData)
       setTime(time)
+      props.setCountryList(data)
       });
   }, []); 
   let filteredRows=props.search?rows.filter(row=>row.country.toLowerCase().startsWith(props.search.toLowerCase())):rows
@@ -120,9 +122,13 @@ const useStyles = makeStyles({
     </Paper>
   );
 }
+const mapDispatchToProps = (dispatch) => ({
+  setCountryList: (data) => dispatch(setCountryList(data))
+});
 function mapStateToProps(state) {
   return {
-    search:state.rootReducer.searchField
+    search:state.rootReducer.searchField,
+    country:state.rootReducer.countries
   }
 }
-export default connect(mapStateToProps,null)(CountryView)
+export default connect(mapStateToProps,mapDispatchToProps)(CountryView)

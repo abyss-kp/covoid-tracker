@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles, useTheme,fade } from '@material-ui/core/styles';
+import { makeStyles, useTheme, fade } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -23,7 +23,7 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import PublicIcon from '@material-ui/icons/Public';
 import { connect } from 'react-redux';
 import HomeIcon from '@material-ui/icons/Home';
-import {setHeaderSearch} from '../actions/index'
+import { setHeaderSearch } from '../actions/index'
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -120,15 +120,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
- function PersistentDrawerRight(props) {
+function PersistentDrawerRight(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-const [search,setSearch]=React.useState("")
+  const [search, setSearch] = React.useState("")
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-  const handleSearch = (e) => {  
+  const handleSearch = (e) => {
     props.setHeaderSearch(e.target.value)
     setSearch(e.target.value)
   };
@@ -139,87 +139,93 @@ const [search,setSearch]=React.useState("")
 
   return (
     <ClickAwayListener onClickAway={handleDrawerClose}>
-    <div className={classes.root} >
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
-      >
-        <Toolbar>
-        <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={()=>console.log(props.history.goBack())}
-            edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
-          >
-            <ArrowBackIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap className={classes.title} style={{textAlignLast:"center"}}>
-            COVID 19 Updates
+      <div className={classes.root} >
+        <CssBaseline />
+        <AppBar
+          position="fixed"
+          className={clsx(classes.appBar, {
+            [classes.appBarShift]: open,
+          })}
+        >
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={() => console.log(props.history.goBack())}
+              edge="start"
+              className={clsx(classes.menuButton, open && classes.hide)}
+            >
+              <ArrowBackIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap className={classes.title} style={{ textAlignLast: "center" }}>
+              COVID 19 Updates
           </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+                onChange={handleSearch}
+                value={props.search}
+              />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-              onChange={handleSearch}
-              value={search}
-            />
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="end"
+              onClick={handleDrawerOpen}
+              className={clsx(open && classes.hide)}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+
+        <Drawer
+          className={classes.drawer}
+          variant="persistent"
+          anchor="right"
+          open={open}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          <div className={classes.drawerHeader}>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton>
           </div>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="end"
-            onClick={handleDrawerOpen}
-            className={clsx(open && classes.hide)}
-          >
-            <MenuIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-     
-      <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="right"
-        open={open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
-          {['All', 'India'].map((text, index) => (
-            <ListItem button key={text} onClick={()=>{props.history.push(`/${text}`) 
-            handleDrawerClose()
-            props.setHeaderSearch("")
-            setSearch("")
-            }}>
-              <ListItemIcon>{index % 2 === 0 ? <PublicIcon /> : <HomeIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-    </div>
-      </ClickAwayListener>
+          <Divider />
+          <List>
+            {['All', 'India'].map((text, index) => (
+              <ListItem button key={text} onClick={() => {
+                props.history.push(`/${text}`)
+                handleDrawerClose()
+                props.setHeaderSearch("")
+                setSearch("")
+              }}>
+                <ListItemIcon>{index % 2 === 0 ? <PublicIcon /> : <HomeIcon />}</ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            ))}
+          </List>
+        </Drawer>
+      </div>
+    </ClickAwayListener>
   );
 }
 const mapDispatchToProps = (dispatch) => ({
   setHeaderSearch: (data) => dispatch(setHeaderSearch(data))
 });
-export default connect(null,mapDispatchToProps)(withRouter(PersistentDrawerRight))
+function mapStateToProps(state) {
+  return {
+    search: state.rootReducer.searchField,
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(PersistentDrawerRight))

@@ -47,9 +47,10 @@ class CityView extends React.Component {
       if (!stateCities.districtData)
         this.props.history.push("/India")
       else {
-        let rows = stateCities.districtData.map(itm =>
-          createData(itm.district, itm.confirmed, itm.delta.confirmed)
-        )
+        let rows = stateCities.districtData.map(itm =>{
+          return createData(itm.district, itm.confirmed, itm.delta.confirmed)}
+        ).filter(e=>e.district!=="Unknown")
+        console.log(rows)
         this.setState({ rows })
       }
     }

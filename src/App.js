@@ -22,7 +22,6 @@ class App extends React.Component {
       <Router history={Router.browserHistory}>
       <PersistentDrawerRight/>
        <Switch>
-        {/* <Route exact path="/IndiaView" component={IndiaView} /> */}
         <Route exact path="/All" component={CountryView} />
         <Route  exact path="/India" component={IndiaView} />
         <Route  exact path="/" component={IndiaView} />
