@@ -10,6 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { setCaseSeries,setStateWiseData } from '../actions/index'
+import Tooltip from '@material-ui/core/Tooltip';
 const columns = [
   { id: 'state', label: 'State', minWidth: 10, align: 'left', maxWidth: 50 },
   { id: 'confirmed', label: 'Total', minWidth: 80, align: 'center', },
@@ -85,8 +86,8 @@ class IndiaView extends React.Component {
       <Paper className={classes.root}>
         <TableContainer className={classes.container}>
           <Table stickyHeader aria-label="sticky table">
-          {!filteredRows.length ?  <caption style={{"textAlignLast":'center'}}>Please wait!<b> Loading data 🔄🔄🔄</b></caption>:
-        <caption style={{"textAlignLast":'center'}} ><b>Updated at: </b> {this.state.time}</caption>}
+          {!filteredRows.length ?  <caption /* style={{"textAlignLast":'center'}} */>Please wait!<b> Loading data 🔄🔄🔄</b></caption>:
+        <caption /* style={{"textAlignLast":'center'}} */ ><b>Updated at: </b> {this.state.time}</caption>}
             <TableHead>
               <TableRow>
                 {columns.map((column) => (
@@ -102,7 +103,8 @@ class IndiaView extends React.Component {
             </TableHead>
             <TableBody >
                {filteredRows.map((row,idx) => {
-              return (
+                 return (
+              <Tooltip title="Click to view districts">
                 <TableRow hover role="checkbox" tabIndex={-1} key={idx} >
                   {columns.map((column) => {
                     const value = row[column.id];
@@ -113,6 +115,7 @@ class IndiaView extends React.Component {
                     );
                   })}
                 </TableRow>
+            </Tooltip>
               );
             })}
             </TableBody>

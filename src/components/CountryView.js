@@ -8,7 +8,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { connect } from 'react-redux';
-
 const columns = [
   { id: 'country', label: 'Country', minWidth: 10,align:'left',maxWidth:50 },
   { id: 'total_cases', label: 'Total', minWidth: 80 , align: 'center',},
@@ -84,8 +83,8 @@ const useStyles = makeStyles({
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
-          {!rows.length ?  <caption style={{"textAlignLast":'center'}}>Please wait!<b> Loading data 🔄🔄🔄</b></caption>:
-        <caption style={{"textAlignLast":'center'}} ><b>Updated at: </b> {time}</caption>}
+          {!rows.length ?  <caption >Please wait!<b> Loading data 🔄🔄🔄</b></caption>:
+        <caption  ><b>Updated at: </b> {time}</caption>}
           <TableHead>
             <TableRow>
               {columns.map((column) => (
@@ -100,6 +99,7 @@ const useStyles = makeStyles({
             </TableRow>
           </TableHead>
           <TableBody>
+          
             {filteredRows.map((row) => {
               return (
                 <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
