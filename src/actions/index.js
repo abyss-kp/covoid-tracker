@@ -27,3 +27,9 @@ export const setCaseSeries = (data) => ({
   type: SET_CASE_SERIES,
   payload: data
 });
+
+export const SET_HEADER_SEARCH="SET_HEADER_SEARCH"
+export const setHeaderSearch= (data) => ({
+  type: SET_HEADER_SEARCH,
+  payload: data
+});
