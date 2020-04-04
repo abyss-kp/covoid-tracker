@@ -6,8 +6,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import { connect } from 'react-redux';
 
 const columns = [
   { id: 'country', label: 'Country', minWidth: 10,align:'left',maxWidth:50 },
@@ -63,20 +63,10 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TableView() {
+ function CountryView(props) {
   const classes = useStyles();
-  /* const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10); */
   const [rows, setRows] = React.useState([]); 
   const [time,setTime]=React.useState("")
- /*  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  }; */
   React.useEffect(() => {
     fetch('https://corona-virus-stats.herokuapp.com/api/v1/cases/countries-search?limit=209')
       .then(results => results.json())
@@ -89,6 +79,7 @@ export default function TableView() {
       setTime(time)
       });
   }, []); 
+  let filteredRows=props.search?rows.filter(row=>row.country.toLowerCase().startsWith(props.search.toLowerCase())):rows
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
@@ -109,8 +100,7 @@ export default function TableView() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => { */}
-            {rows.map((row) => {
+            {filteredRows.map((row) => {
               return (
                 <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                   {columns.map((column) => {
@@ -126,17 +116,13 @@ export default function TableView() {
             })}
           </TableBody>
         </Table>
-      </TableContainer>
-      {/* <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
-      /> */}
-     
+      </TableContainer>     
     </Paper>
   );
 }
+function mapStateToProps(state) {
+  return {
+    search:state.rootReducer.searchField
+  }
+}
+export default connect(mapStateToProps,null)(CountryView)

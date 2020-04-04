@@ -72,7 +72,6 @@ class IndiaView extends React.Component {
     await axios.get(`https://api.covid19india.org/v2/state_district_wise.json`)
     .then(res => {
      let response=res.data
-     console.log(response)
      this.setState({cities:response},()=>{
       //  set data in redux
        this.props.setStateWiseData(response)
@@ -80,12 +79,13 @@ class IndiaView extends React.Component {
     })
   }
   render() {
+    let filteredRows=this.props.search?this.state.rows.filter(row=>row.state.toLowerCase().startsWith(this.props.search.toLowerCase())):this.state.rows
     const {classes}=this.props
     return (
       <Paper className={classes.root}>
         <TableContainer className={classes.container}>
           <Table stickyHeader aria-label="sticky table">
-          {!this.state.rows.length ?  <caption style={{"textAlignLast":'center'}}>Please wait!<b> Loading data 🔄🔄🔄</b></caption>:
+          {!filteredRows.length ?  <caption style={{"textAlignLast":'center'}}>Please wait!<b> Loading data 🔄🔄🔄</b></caption>:
         <caption style={{"textAlignLast":'center'}} ><b>Updated at: </b> {this.state.time}</caption>}
             <TableHead>
               <TableRow>
@@ -101,7 +101,7 @@ class IndiaView extends React.Component {
               </TableRow>
             </TableHead>
             <TableBody >
-               {this.state.rows.map((row,idx) => {
+               {filteredRows.map((row,idx) => {
               return (
                 <TableRow hover role="checkbox" tabIndex={-1} key={idx} >
                   {columns.map((column) => {
@@ -123,7 +123,9 @@ class IndiaView extends React.Component {
   }
 }
 function mapStateToProps(state) {
-  return state
+  return {
+    search:state.rootReducer.searchField
+  }
 }
 const mapDispatchToProps = (dispatch) => ({
   setCaseSeries: (data) => dispatch(setCaseSeries(data)),

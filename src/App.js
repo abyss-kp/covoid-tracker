@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from "react-redux";
-import Search from './components/not used/Search'
 import IndiaView from './components/IndiaView'
 import CityView from './components/CityView'
 import PersistentDrawerRight from './components/drawer'
 import './App.css';
-import TableView from './components/TableView'
+import CountryView from './components/CountryView'
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import theme from './theme'
@@ -24,16 +23,14 @@ class App extends React.Component {
       <PersistentDrawerRight/>
        <Switch>
         {/* <Route exact path="/IndiaView" component={IndiaView} /> */}
-        <Route exact path="/All" component={TableView} />
+        <Route exact path="/All" component={CountryView} />
         <Route  exact path="/India" component={IndiaView} />
         <Route  exact path="/" component={IndiaView} />
         <Route exact path="/State/:name" component={CityView} />
       </Switch>
-      </Router>,
-      {/* </PersistentDrawerRight> */}
-
+      </Router>
     </ThemeProvider>
     )
   }
 }
-export default connect()(App);
+export default (App);

@@ -20,7 +20,6 @@ const columns = [
 ];
 
 function createData(district, confirmed, deltaconfirmed) {
-  console.log(district, confirmed, deltaconfirmed)
   return { district, confirmed, deltaconfirmed };
 }
 
@@ -45,7 +44,7 @@ class CityView extends React.Component {
       this.props.history.push("/India")
     else {
       let stateCities = this.props.city.filter(e => e.state === stateName)[0]
-      if (!stateCities.length)
+      if (!stateCities.districtData)
         this.props.history.push("/India")
       else {
         let rows = stateCities.districtData.map(itm =>
@@ -56,6 +55,7 @@ class CityView extends React.Component {
     }
   }
   render() {
+    let filteredRows=this.props.search?this.state.rows.filter(row=>row.district.toLowerCase().startsWith(this.props.search.toLowerCase())):this.state.rows
     const { classes } = this.props
     return (
       <Paper className={classes.root}>
@@ -75,7 +75,7 @@ class CityView extends React.Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {this.state.rows.map((row, idx) => {
+              {filteredRows.map((row, idx) => {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={idx}>
                     {columns.map((column) => {
@@ -98,7 +98,8 @@ class CityView extends React.Component {
 }
 function mapStateToProps(state) {
   return {
-    city: state.rootReducer.statewise
+    city: state.rootReducer.statewise, 
+    search:state.rootReducer.searchField
   }
 }
 export default connect(mapStateToProps, null)(withStyles(styles)(CityView))
