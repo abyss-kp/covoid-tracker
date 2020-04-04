@@ -10,13 +10,12 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import TableChartIcon from '@material-ui/icons/TableChart';
-import SearchIcon from '@material-ui/icons/Search';
 import { withRouter } from "react-router-dom";
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import PublicIcon from '@material-ui/icons/Public';
@@ -104,6 +103,15 @@ const useStyles = makeStyles((theme) => ({
         })}
       >
         <Toolbar>
+        <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={()=>console.log(props.history.goBack())}
+            edge="start"
+            className={clsx(classes.menuButton, open && classes.hide)}
+          >
+            <ArrowBackIcon />
+          </IconButton>
           <Typography variant="h6" noWrap className={classes.title} style={{textAlignLast:"center"}}>
             COVIOD-19 Updates
           </Typography>
