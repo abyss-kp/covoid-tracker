@@ -27,7 +27,7 @@ class App extends React.Component {
             <Route exact path="/All" component={CountryView} />
             <Route exact path="/India" component={IndiaCardView} />
             <Route exact path="/Resources" component={Resources} />
-            <Route exact path="/" component={BarChart} />
+            <Route exact path="/" component={IndiaCardView} />
             <Route exact path="/State/:name" component={CityGraphView} />
           </Switch>
         </Router>
