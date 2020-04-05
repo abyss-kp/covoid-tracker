@@ -18,6 +18,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import HelpIcon from '@material-ui/icons/Help';
 import { withRouter } from "react-router-dom";
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import PublicIcon from '@material-ui/icons/Public';
@@ -136,7 +137,14 @@ function PersistentDrawerRight(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
+const makeIcons=(text)=>{
+ if(text=="All")
+ return <PublicIcon/>
+ else if(text==="India")
+ return <HomeIcon/>
+ else if(text==="Resources")
+ return <HelpIcon/>
+}
   return (
     <ClickAwayListener onClickAway={handleDrawerClose}>
       <div className={classes.root} >
@@ -151,7 +159,7 @@ function PersistentDrawerRight(props) {
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              onClick={() => console.log(props.history.goBack())}
+              onClick={() => props.history.goBack()}
               edge="start"
               className={clsx(classes.menuButton, open && classes.hide)}
             >
@@ -203,14 +211,14 @@ function PersistentDrawerRight(props) {
           </div>
           <Divider />
           <List>
-            {['All', 'India'].map((text, index) => (
+            {['All', 'India','Resources'].map((text, index) => (
               <ListItem button key={text} onClick={() => {
                 props.history.push(`/${text}`)
                 handleDrawerClose()
                 props.setHeaderSearch("")
                 setSearch("")
               }}>
-                <ListItemIcon>{index % 2 === 0 ? <PublicIcon /> : <HomeIcon />}</ListItemIcon>
+                <ListItemIcon>{makeIcons(text)}</ListItemIcon>
                 <ListItemText primary={text} />
               </ListItem>
             ))}

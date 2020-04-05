@@ -8,10 +8,10 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { connect } from 'react-redux';
-import {setCountryList} from '../actions/index'
+import { setCountryList, setLoader } from '../actions/index'
 const columns = [
-  { id: 'country', label: 'Country', minWidth: 10,align:'left',maxWidth:50 },
-  { id: 'total_cases', label: 'Total', minWidth: 80 , align: 'center',},
+  { id: 'country', label: 'Country', minWidth: 10, align: 'left', maxWidth: 50 },
+  { id: 'total_cases', label: 'Total', minWidth: 80, align: 'center', },
   {
     id: 'new_cases',
     label: 'New',
@@ -49,44 +49,59 @@ const columns = [
   }
 ];
 
-function createData(country, total_cases, new_cases, total_deaths,total_recovered,active_cases,serious_critical,new_deaths) {
-  return { country, total_cases, new_cases, total_deaths,total_recovered,active_cases,serious_critical,new_deaths };
+function createData(country, total_cases, new_cases, total_deaths, total_recovered, active_cases, serious_critical, new_deaths) {
+  return { country, total_cases, new_cases, total_deaths, total_recovered, active_cases, serious_critical, new_deaths };
 }
 
 const useStyles = makeStyles({
   root: {
     width: '100%',
-    paddingTop:'70px'
+    paddingTop: '70px'
   },
   container: {
     maxHeight: 550
   },
 });
 
- function CountryView(props) {
+function CountryView(props) {
   const classes = useStyles();
-  const [rows, setRows] = React.useState([]); 
-  const [time,setTime]=React.useState("")
+  const [rows, setRows] = React.useState([]);
+  const [time, setTime] = React.useState("")
   React.useEffect(() => {
-    fetch('https://corona-virus-stats.herokuapp.com/api/v1/cases/countries-search?limit=209')
+    let rowData = []
+    let time = ""
+    props.setLoader(true)
+    if (!props.country.data) {
+      fetch('https://corona-virus-stats.herokuapp.com/api/v1/cases/countries-search?limit=209')
       .then(results => results.json())
       .then(data => {
-     let rowData= data.data.rows.map(itm=>createData(
-        itm.country, itm.total_cases, itm.new_cases, itm.total_deaths,itm.total_recovered,itm.active_cases,itm.serious_critical,itm.new_deaths
+        rowData = data.data.rows.map(itm => createData(
+          itm.country, itm.total_cases, itm.new_cases, itm.total_deaths, itm.total_recovered, itm.active_cases, itm.serious_critical, itm.new_deaths
+        ))
+        time = new Date(data.data.last_update.split(",").join("")).toString()
+        props.setCountryList(data)
+        setRows(rowData)
+        setTime(time)
+        props.setLoader(false)
+      }).catch(e => alert("An error occured! \n Please reload!"))
+    }
+    else {
+      rowData = props.country.data.rows.map(itm => createData(
+        itm.country, itm.total_cases, itm.new_cases, itm.total_deaths, itm.total_recovered, itm.active_cases, itm.serious_critical, itm.new_deaths
       ))
-      let time=new Date(data.data.last_update.split(",").join("")).toString()
+      time = new Date(props.country.data.last_update.split(",").join("")).toString()
       setRows(rowData)
       setTime(time)
-      props.setCountryList(data)
-      });
-  }, []); 
-  let filteredRows=props.search?rows.filter(row=>row.country.toLowerCase().startsWith(props.search.toLowerCase())):rows
+      props.setLoader(false)
+    }
+  }, []);
+  let filteredRows = props.search ? rows.filter(row => row.country.toLowerCase().startsWith(props.search.toLowerCase())) : rows
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
-          {!rows.length ?  <caption >Please wait!<b> Loading data 🔄🔄🔄</b></caption>:
-        <caption  ><b>Updated at: </b> {time}</caption>}
+          {!rows.length ? <caption >Please wait!<b> Loading data 🔄🔄🔄</b></caption> :
+            <caption  ><b>Updated at: </b> {time}</caption>}
           <TableHead>
             <TableRow>
               {columns.map((column) => (
@@ -101,7 +116,7 @@ const useStyles = makeStyles({
             </TableRow>
           </TableHead>
           <TableBody>
-          
+
             {filteredRows.map((row) => {
               return (
                 <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
@@ -118,17 +133,20 @@ const useStyles = makeStyles({
             })}
           </TableBody>
         </Table>
-      </TableContainer>     
+      </TableContainer>
     </Paper>
   );
 }
 const mapDispatchToProps = (dispatch) => ({
-  setCountryList: (data) => dispatch(setCountryList(data))
+  setCountryList: (data) => dispatch(setCountryList(data)),
+  setLoader: (data) => dispatch(setLoader(data)),
 });
 function mapStateToProps(state) {
+  console.log(state.rootReducer.countries)
   return {
-    search:state.rootReducer.searchField,
-    country:state.rootReducer.countries
+    search: state.rootReducer.searchField,
+    country: state.rootReducer.countries,
+    loader: state.rootReducer.loader,
   }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(CountryView)
+export default connect(mapStateToProps, mapDispatchToProps)(CountryView)
