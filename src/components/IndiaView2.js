@@ -1,17 +1,8 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { setCaseSeries, setStateWiseData, setHeaderSearch } from '../actions/index'
-import Tooltip from '@material-ui/core/Tooltip';
-import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
+import { setCaseSeries, setStateWiseData, setHeaderSearch,setLoader } from '../actions/index'
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -85,7 +76,7 @@ class IndiaView2 extends React.Component {
     cities: []
   }
   async componentDidMount() {
-    //Get India's states data
+    this.props.setLoader(true)
     await axios.get(`https://api.covid19india.org/data.json`)
       .then(res => {
         let response = res.data
@@ -100,10 +91,11 @@ class IndiaView2 extends React.Component {
       .then(res => {
         let response = res.data
         this.setState({ cities: response }, () => {
-          //  set data in redux
+          this.props.setLoader(false)
           this.props.setStateWiseData(response)
         })
       })
+      // .catch((err)=> this.props.setLoader(false))
   }
   showDistrictClicked = (row) => {
     this.props.setHeaderSearch("")
@@ -165,6 +157,7 @@ function mapStateToProps(state) {
 }
 const mapDispatchToProps = (dispatch) => ({
   setCaseSeries: (data) => dispatch(setCaseSeries(data)),
+  setLoader: (data) => dispatch(setLoader(data)),
   setStateWiseData: (data) => dispatch(setStateWiseData(data)),
   setHeaderSearch: (data) => dispatch(setHeaderSearch(data))
 });

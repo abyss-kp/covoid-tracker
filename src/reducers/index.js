@@ -1,4 +1,6 @@
-import { SET_COUNTRIES,SET_COUNTRY_CITIES ,SET_SELECTED_COUNTRY_CITY,SET_STATE_WISE_CITY_DATA,SET_CASE_SERIES,SET_HEADER_SEARCH} from '../actions/index'
+import { SET_COUNTRIES,SET_COUNTRY_CITIES ,SET_SELECTED_COUNTRY_CITY,
+  SET_STATE_WISE_CITY_DATA,SET_CASE_SERIES,SET_HEADER_SEARCH,
+  SET_LOADER} from '../actions/index'
 import { combineReducers } from 'redux';
 
 const initialState = {
@@ -10,7 +12,8 @@ const initialState = {
   },
   statewise:[],
   caseSeries:[],
-  searchField:""
+  searchField:"",
+  loader:false
 }
 function rootReducer(state = initialState, action) {
   switch (action.type) {
@@ -43,6 +46,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         searchField: action.payload
+      }
+      case SET_LOADER:
+      return {
+        ...state,
+        loader: action.payload
       }
       default:
         return state

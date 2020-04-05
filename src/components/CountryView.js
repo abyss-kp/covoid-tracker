@@ -8,7 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { connect } from 'react-redux';
-import {setCountryList} from '../actions/index'
+import {setCountryList,setLoader} from '../actions/index'
 const columns = [
   { id: 'country', label: 'Country', minWidth: 10,align:'left',maxWidth:50 },
   { id: 'total_cases', label: 'Total', minWidth: 80 , align: 'center',},
@@ -68,6 +68,7 @@ const useStyles = makeStyles({
   const [rows, setRows] = React.useState([]); 
   const [time,setTime]=React.useState("")
   React.useEffect(() => {
+    props.setLoader(true)
     fetch('https://corona-virus-stats.herokuapp.com/api/v1/cases/countries-search?limit=209')
       .then(results => results.json())
       .then(data => {
@@ -78,6 +79,7 @@ const useStyles = makeStyles({
       setRows(rowData)
       setTime(time)
       props.setCountryList(data)
+      props.setLoader(false)
       });
   }, []); 
   let filteredRows=props.search?rows.filter(row=>row.country.toLowerCase().startsWith(props.search.toLowerCase())):rows
@@ -123,12 +125,14 @@ const useStyles = makeStyles({
   );
 }
 const mapDispatchToProps = (dispatch) => ({
-  setCountryList: (data) => dispatch(setCountryList(data))
+  setCountryList: (data) => dispatch(setCountryList(data)),
+  setLoader: (data) => dispatch(setLoader(data)),
 });
 function mapStateToProps(state) {
   return {
     search:state.rootReducer.searchField,
-    country:state.rootReducer.countries
+    country:state.rootReducer.countries,
+    loader:state.rootReducer.loader,
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(CountryView)

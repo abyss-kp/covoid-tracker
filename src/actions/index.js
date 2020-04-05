@@ -33,3 +33,9 @@ export const setHeaderSearch= (data) => ({
   type: SET_HEADER_SEARCH,
   payload: data
 });
+
+export const SET_LOADER="SET_LOADER"
+export const setLoader= (bool) => ({
+  type: SET_LOADER,
+  payload: bool
+});

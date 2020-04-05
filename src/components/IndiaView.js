@@ -9,7 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { setCaseSeries, setStateWiseData, setHeaderSearch } from '../actions/index'
+import { setCaseSeries, setStateWiseData, setLoader,setHeaderSearch } from '../actions/index'
 import Tooltip from '@material-ui/core/Tooltip';
 const columns = [
   { id: 'state', label: 'State', minWidth: 10, align: 'left', maxWidth: 50 },
@@ -60,6 +60,7 @@ class IndiaView extends React.Component {
   }
   async componentDidMount() {
     //Get India's states data
+    this.props.setLoader(true)
     await axios.get(`https://api.covid19india.org/data.json`)
       .then(res => {
         let response = res.data
@@ -75,9 +76,11 @@ class IndiaView extends React.Component {
         let response = res.data
         this.setState({ cities: response }, () => {
           //  set data in redux
+          this.props.setLoader(true)
           this.props.setStateWiseData(response)
         })
       })
+      // .catch(e=> this.props.setLoader(true))
   }
   rowClick = (row) => {
     this.props.setHeaderSearch("")
@@ -137,6 +140,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = (dispatch) => ({
   setCaseSeries: (data) => dispatch(setCaseSeries(data)),
   setStateWiseData: (data) => dispatch(setStateWiseData(data)),
+  setLoader: (data) => dispatch(setLoader(data)),
   setHeaderSearch: (data) => dispatch(setHeaderSearch(data))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(IndiaView))

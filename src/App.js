@@ -5,6 +5,7 @@ import Resources from './components/About'
 import CityView from './components/CityView'
 import PersistentDrawerRight from './components/drawer'
 import CountryView from './components/CountryView'
+import Loader from './components/Loader'
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import theme from './theme'
@@ -21,6 +22,7 @@ class App extends React.Component {
         <CssBaseline />
         <Router history={Router.browserHistory}>
           <PersistentDrawerRight />
+          <Loader/>
           <Switch>
             <Route exact path="/All" component={CountryView} />
             <Route exact path="/India" component={IndiaView2} />
