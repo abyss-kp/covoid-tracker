@@ -142,7 +142,6 @@ const mapDispatchToProps = (dispatch) => ({
   setLoader: (data) => dispatch(setLoader(data)),
 });
 function mapStateToProps(state) {
-  console.log(state.rootReducer.countries)
   return {
     search: state.rootReducer.searchField,
     country: state.rootReducer.countries,

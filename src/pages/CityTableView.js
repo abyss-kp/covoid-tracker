@@ -33,7 +33,7 @@ const styles = (theme) => ({
   },
 });
 
-class CityView extends React.Component {
+class CityTableView extends React.Component {
   state = {
     time: "",
     rows: []
@@ -50,7 +50,6 @@ class CityView extends React.Component {
         let rows = stateCities.districtData.map(itm =>{
           return createData(itm.district, itm.confirmed, itm.delta.confirmed)}
         ).filter(e=>e.district!=="Unknown")
-        console.log(rows)
         this.setState({ rows })
       }
     }
@@ -103,4 +102,4 @@ function mapStateToProps(state) {
     search:state.rootReducer.searchField
   }
 }
-export default connect(mapStateToProps, null)(withStyles(styles)(CityView))
+export default connect(mapStateToProps, null)(withStyles(styles)(CityTableView))

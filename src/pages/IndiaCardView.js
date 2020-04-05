@@ -67,7 +67,7 @@ const styles = (theme) => ({
   }
 });
 
-class IndiaView2 extends React.Component {
+class IndiaCardView extends React.Component {
   state = {
     time: "",
     statesData: {},
@@ -89,7 +89,7 @@ class IndiaView2 extends React.Component {
           this.props.setCaseSeries(response.cases_time_series)
           this.props.setCountryCities(state)
         })
-      })
+      }).catch(e=>alert("An error occured! \n Please reload!"))
     }else
     this.setState({rows:this.props.states})
     if(!this.props.districts.length)
@@ -176,4 +176,4 @@ const mapDispatchToProps = (dispatch) => ({
   setHeaderSearch: (data) => dispatch(setHeaderSearch(data)),
   setCountryCities: (data) => dispatch(setCountryCities(data))
 });
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(IndiaView2))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(IndiaCardView))
