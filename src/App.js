@@ -1,5 +1,5 @@
 import React from 'react';
-import IndiaView from './components/IndiaView'
+// import IndiaView from './components/IndiaView'
 import IndiaView2 from './components/IndiaView2'
 import CityView from './components/CityView'
 import PersistentDrawerRight from './components/drawer'
@@ -22,7 +22,7 @@ class App extends React.Component {
           <PersistentDrawerRight />
           <Switch>
             <Route exact path="/All" component={CountryView} />
-            <Route exact path="/India" component={IndiaView} />
+            <Route exact path="/India" component={IndiaView2} />
             <Route exact path="/" component={IndiaView2} />
             <Route exact path="/State/:name" component={CityView} />
           </Switch>
