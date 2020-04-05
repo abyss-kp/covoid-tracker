@@ -65,7 +65,7 @@ class IndiaView extends React.Component {
         let response = res.data
         let state = response.statewise.filter(e => (!["Dadra and Nagar Haveli",
           "Daman and Diu", "Lakshadweep", "Meghalaya", "Nagaland", "Sikkim", "Tripura"].includes(e.state)))
-        this.setState({ time: response.key_values[0].lastupdatedtime, statesData: response.statewise, rows: state }, () => {
+        this.setState({  statesData: response.statewise, rows: state }, () => {//time: response.key_values[0].lastupdatedtime,
           //set data in redux
           this.props.setCaseSeries(response.cases_time_series)
         })
@@ -91,7 +91,7 @@ class IndiaView extends React.Component {
         <TableContainer className={classes.container}>
           <Table stickyHeader aria-label="sticky table">
             {!filteredRows.length ? <caption /* style={{"textAlignLast":'center'}} */>Please wait!<b> Loading data 🔄🔄🔄</b></caption> :
-              <caption /* style={{"textAlignLast":'center'}} */ ><b>Updated at: </b> {this.state.time}</caption>}
+              <caption /* style={{"textAlignLast":'center'}} */ >Thanks for visiting !</caption>}
             <TableHead>
               <TableRow>
                 {columns.map((column) => (
