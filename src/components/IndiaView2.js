@@ -69,10 +69,10 @@ const styles = (theme) => ({
   pos: {
     marginBottom: 12,
   },
-  img:{
-    width:'9%',
-    verticalAlign:"middle",
-    border:'outset',
+  img: {
+    width: '9%',
+    verticalAlign: "middle",
+    border: 'outset',
   }
 });
 
@@ -91,7 +91,7 @@ class IndiaView2 extends React.Component {
         let response = res.data
         let state = response.statewise.filter(e => (!["Dadra and Nagar Haveli",
           "Daman and Diu", "Lakshadweep", "Meghalaya", "Nagaland", "Sikkim", "Tripura"].includes(e.state)))
-        this.setState({  statesData: response.statewise, rows: state }, () => { //time: response.key_values[0].lastupdatedtime,
+        this.setState({ statesData: response.statewise, rows: state }, () => { //time: response.key_values[0].lastupdatedtime,
           //set data in redux
           this.props.setCaseSeries(response.cases_time_series)
         })
@@ -114,32 +114,33 @@ class IndiaView2 extends React.Component {
     const { classes } = this.props
     return (
       <Card className={classes.cardRoot} variant="outlined">
-        <CardContent>
+        <CardContent
+          style={{ backgroundImage: `url("/Images/${row.state}.png")`, backgroundBlendMode: 'screen', backgroundColor: 'lavenderblush', backgroundSize: 'cover' }}
+        >
           <Typography className={classes.title} color="textSecondary" gutterBottom>
             <b>Confirmed : {row.confirmed}</b>
           </Typography>
-          <Typography variant="h5" component="h2">
-            <img src={`/Images/${row.state}.png`}className={classes.img}/>  <b> {row.state}</b>
-            {/* <img src="logo192.png"className={classes.img}/>  <b> {row.state}</b> */}
+          <Typography variant="h5" component="h1">
+            <img src={`/Images/${row.state}.png`} className={classes.img} />  <b> {row.state}</b>
           </Typography>
-          <Typography className={classes.pos} color="textSecondary">
+          <Typography variant="body2" component="p" color="textSecondary">
             Last Updated : {row.lastupdatedtime}
           </Typography>
-          <Typography variant="body2" component="p">
-            <span style={{color:'darkcyan'}}>Active : {row.active} </span>&emsp; <span style={{color:'green'}}> Recovered : {row.recovered}</span>
+          <Typography className={classes.pos} >
+            <span style={{ color: 'darkcyan' }}>Active : {row.active} </span>&emsp; <span style={{ color: 'green' }}> Recovered : {row.recovered}</span>
             <br />
-         <span style={{color:'maroon'}}> Death:{row.deaths}</span>
+            <span style={{ color: 'maroon' }}> Death:{row.deaths}</span>
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" disabled={row.state === "Total"} onClick={()=>this.showDistrictClicked(row)}>Show Districts</Button>
+          <Button size="small" disabled={row.state === "Total"} onClick={() => this.showDistrictClicked(row)}>Show Districts</Button>
         </CardActions>
       </Card>)
   }
   render() {
     let filteredRows = this.props.search ? this.state.rows.filter(row => row.state.toLowerCase().startsWith(this.props.search.toLowerCase())) : this.state.rows
     const { classes } = this.props
-    
+
     return (
       <div className={classes.root}>
         <Grid container
