@@ -6,10 +6,10 @@ import { combineReducers } from 'redux';
 const initialState = {
   // states:{},
   countries: [],
-  selectedCountryCity:{
-    country:"",
-    city:""
-  },
+  // selectedCountryCity:{
+  //   country:"",
+  //   city:""
+  // },
   statewise:[],
   caseSeries:[],
   searchField:"",
@@ -22,16 +22,16 @@ function rootReducer(state = initialState, action) {
         ...state,
         countries: action.payload
       }
-    //   case SET_COUNTRY_CITIES:
-    //   return {
-    //     ...state,
-    //     states: action.payload
-    //   }
-      case SET_SELECTED_COUNTRY_CITY:
+      case SET_COUNTRY_CITIES:
       return {
         ...state,
-        selectedCountryCity: action.payload
+        states: action.payload
       }
+      // case SET_SELECTED_COUNTRY_CITY:
+      // return {
+      //   ...state,
+      //   selectedCountryCity: action.payload
+      // }
       case SET_STATE_WISE_CITY_DATA:
       return {
         ...state,

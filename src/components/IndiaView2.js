@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { setCaseSeries, setStateWiseData, setHeaderSearch,setLoader } from '../actions/index'
+import { setCaseSeries, setStateWiseData, setHeaderSearch,setLoader,setCountryCities } from '../actions/index'
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -77,6 +77,8 @@ class IndiaView2 extends React.Component {
   }
   async componentDidMount() {
     this.props.setLoader(true)
+    if(!this.props.caseSeries.length)
+    {
     await axios.get(`https://api.covid19india.org/data.json`)
       .then(res => {
         let response = res.data
@@ -85,8 +87,12 @@ class IndiaView2 extends React.Component {
         this.setState({ statesData: response.statewise, rows: state }, () => { //time: response.key_values[0].lastupdatedtime,
           //set data in redux
           this.props.setCaseSeries(response.cases_time_series)
+          this.props.setCountryCities(state)
         })
       })
+    }else
+    this.setState({rows:this.props.states})
+    if(!this.props.districts.length)
     await axios.get(`https://api.covid19india.org/v2/state_district_wise.json`)
       .then(res => {
         let response = res.data
@@ -94,7 +100,12 @@ class IndiaView2 extends React.Component {
           this.props.setLoader(false)
           this.props.setStateWiseData(response)
         })
-      })
+      }).catch(e=>alert("An error occured! \n Please reload!"))
+      else
+      {
+        this.setState({ cities: this.props.districts })
+        this.props.setLoader(false)
+      }
       // .catch((err)=> this.props.setLoader(false))
   }
   showDistrictClicked = (row) => {
@@ -152,13 +163,17 @@ class IndiaView2 extends React.Component {
 }
 function mapStateToProps(state) {
   return {
-    search: state.rootReducer.searchField
+    search: state.rootReducer.searchField,
+    caseSeries: state.rootReducer.caseSeries,
+    states: state.rootReducer.states,
+    districts: state.rootReducer.statewise,
   }
 }
 const mapDispatchToProps = (dispatch) => ({
   setCaseSeries: (data) => dispatch(setCaseSeries(data)),
   setLoader: (data) => dispatch(setLoader(data)),
   setStateWiseData: (data) => dispatch(setStateWiseData(data)),
-  setHeaderSearch: (data) => dispatch(setHeaderSearch(data))
+  setHeaderSearch: (data) => dispatch(setHeaderSearch(data)),
+  setCountryCities: (data) => dispatch(setCountryCities(data))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(IndiaView2))
