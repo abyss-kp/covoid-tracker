@@ -1,10 +1,10 @@
 import React from 'react';
-// import IndiaView from './components/IndiaView'
-import IndiaView2 from './components/IndiaView2'
-import Resources from './components/About'
-import CityView from './components/CityView'
+import IndiaCardView from './pages/IndiaCardView'
+import Resources from './pages/About'
 import PersistentDrawerRight from './components/drawer'
-import CountryView from './components/CountryView'
+import BarChart from './components/BarChart'
+import CountryView from './pages/CountryView'
+import CityGraphView from './pages/CityGraphView'
 import Loader from './components/Loader'
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -25,10 +25,10 @@ class App extends React.Component {
           <Loader/>
           <Switch>
             <Route exact path="/All" component={CountryView} />
-            <Route exact path="/India" component={IndiaView2} />
+            <Route exact path="/India" component={IndiaCardView} />
             <Route exact path="/Resources" component={Resources} />
-            <Route exact path="/" component={IndiaView2} />
-            <Route exact path="/State/:name" component={CityView} />
+            <Route exact path="/" component={BarChart} />
+            <Route exact path="/State/:name" component={CityGraphView} />
           </Switch>
         </Router>
       </ThemeProvider>

@@ -168,7 +168,7 @@ const makeIcons=(text)=>{
             <Typography variant="h6" noWrap className={classes.title} style={{ textAlignLast: "center" }}>
               COVID 19 Updates
           </Typography>
-            <div className={classes.search}>
+         {!props.history.location.pathname.startsWith("/State/")  && <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
@@ -182,7 +182,7 @@ const makeIcons=(text)=>{
                 onChange={handleSearch}
                 value={props.search}
               />
-            </div>
+            </div>}
             <IconButton
               color="inherit"
               aria-label="open drawer"
