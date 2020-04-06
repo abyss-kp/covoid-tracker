@@ -93,8 +93,8 @@ export default function ControlledExpansionPanels() {
             <a href="https://www.instagram.com/_kapi1/" target="_blank" ><InstagramIcon /></a> &emsp;&emsp;
             <a href="https://www.linkedin.com/in/kapil-pandey-aa175b12a/" target="_blank" ><LinkedInIcon /></a>&emsp;&emsp;
             <a href="https://stackoverflow.com/users/11693215/kapil-pandey" target="_blank" ><QuestionAnswerIcon /></a>&emsp;&emsp; 
-            <a href="mailto:kapil18pandey@gmail.com?Subject=Awesome%20Site😁" target="_top"><EmailIcon/></a>&emsp;&emsp; 
-            <a href="tel:9634422066"><PhoneIcon/></a>
+            {/* <a href="mailto:kapil**pandey@gmail.com?Subject=Awesome%20Site😁" target="_top"><EmailIcon/></a>&emsp;&emsp; 
+            <a href="tel:963*****66"><PhoneIcon/></a> */}
           </Typography>
         </ExpansionPanelDetails>
       </ExpansionPanel>
