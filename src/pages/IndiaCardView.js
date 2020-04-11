@@ -77,7 +77,7 @@ class IndiaCardView extends React.Component {
   }
   async componentDidMount() {
     this.props.setLoader(true)
-    if(!this.props.caseSeries.length)
+    if(!this.props.districts.length)
     {
     await axios.get(`https://api.covid19india.org/data.json`)
       .then(res => {

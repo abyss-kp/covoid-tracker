@@ -23,18 +23,21 @@ const styles = (theme) => ({
 
 class LineChart extends React.Component {
   render() {
+    console.log(this.props.datasets)
     const { classes } = this.props
-    const barChartData={
-      labels:this.props.barChartData.label,
-      datasets: [
-        {
-          label: this.props.label,
-          backgroundColor: "#67b0db",
-          borderColor: "#2d4f7e",
-          borderWidth: 1,
-          data: this.props.barChartData.data
-        }
-      ]
+    const barChartData = {
+      labels: this.props.labels,
+      datasets: this.props.datasets ||
+        [
+          {
+            label: this.props.tooltip,
+            backgroundColor: this.props.backgroundColor || "#67b0db",
+            borderColor: "#2d4f7e",
+            borderWidth: 1,
+            data: this.props.data,
+            fill: this.props.fill || false
+          }
+        ]
     }
     return (
       // <div className={classes.chartWrapper}>

@@ -43,8 +43,9 @@ class CityGraphView extends React.Component {
     return (
       <Paper className={classes.root}>
 <LineChart
-barChartData={this.state}
-label={"Confirmed cases"}
+data={this.state.data}
+labels={this.state.label}
+tooltip={"Confirmed cases"}
 text={`Total confirmed cases in ${this.state.stateName}`}
 />
       </Paper>
