@@ -4,6 +4,7 @@ import Resources from './pages/About'
 import PersistentDrawerRight from './components/drawer'
 import CountryView from './pages/CountryView'
 import CityGraphView from './pages/CityGraphView'
+import TimeSeries from './pages/Timeline'
 import Loader from './components/Loader'
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -26,6 +27,7 @@ class App extends React.Component {
             <Route exact path="/All" component={CountryView} />
             <Route exact path="/India" component={IndiaCardView} />
             <Route exact path="/Resources" component={Resources} />
+            <Route exact path="/Timeline" component={TimeSeries} />
             <Route exact path="/" component={IndiaCardView} />
             <Route exact path="/State/:name" component={CityGraphView} />
           </Switch>

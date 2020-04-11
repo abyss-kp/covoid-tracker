@@ -24,6 +24,7 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import PublicIcon from '@material-ui/icons/Public';
 import { connect } from 'react-redux';
 import HomeIcon from '@material-ui/icons/Home';
+import TimelineIcon from '@material-ui/icons/Timeline';
 import { setHeaderSearch } from '../actions/index'
 const drawerWidth = 240;
 
@@ -144,6 +145,8 @@ const makeIcons=(text)=>{
  return <HomeIcon/>
  else if(text==="Resources")
  return <HelpIcon/>
+ else if(text==="Timeline")
+ return <TimelineIcon/>
 }
 const searchMenu=["/","/All","/India"]
   return (
@@ -212,7 +215,7 @@ const searchMenu=["/","/All","/India"]
           </div>
           <Divider />
           <List>
-            {['All', 'India','Resources'].map((text, index) => (
+            {['All', 'India','Timeline','Resources'].map((text, index) => (
               <ListItem button key={text} onClick={() => {
                 props.history.push(`/${text}`)
                 handleDrawerClose()
