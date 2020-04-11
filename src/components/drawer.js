@@ -155,16 +155,16 @@ const makeIcons=(text)=>{
             [classes.appBarShift]: open,
           })}
         >
-          <Toolbar>
+          <Toolbar>{props.history.location.key &&
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              onClick={() => props.history.goBack()}
+              onClick={() => props.history.goBaack()}
               edge="start"
               className={clsx(classes.menuButton, open && classes.hide)}
             >
               <ArrowBackIcon />
-            </IconButton>
+            </IconButton>}
             <Typography variant="h6" noWrap className={classes.title} style={{ textAlignLast: "center" }}>
               COVID 19 Updates
           </Typography>
