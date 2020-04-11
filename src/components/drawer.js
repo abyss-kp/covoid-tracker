@@ -145,6 +145,7 @@ const makeIcons=(text)=>{
  else if(text==="Resources")
  return <HelpIcon/>
 }
+const searchMenu=["/","/All","/India"]
   return (
     <ClickAwayListener onClickAway={handleDrawerClose}>
       <div className={classes.root} >
@@ -168,7 +169,7 @@ const makeIcons=(text)=>{
             <Typography variant="h6" noWrap className={classes.title} style={{ textAlignLast: "center" }}>
               COVID 19 Updates
           </Typography>
-         {!props.history.location.pathname.startsWith("/State/")  && <div className={classes.search}>
+         {searchMenu.includes(props.history.location.pathname)  && <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
