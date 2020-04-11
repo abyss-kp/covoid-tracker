@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { connect } from 'react-redux';
-import BarChart from '../components/BarChart'
+import LineChart from '../components/LineChart'
 const styles = (theme) => ({
   root: {
     width: '100%',
@@ -42,7 +42,7 @@ class CityGraphView extends React.Component {
     const { classes } = this.props
     return (
       <Paper className={classes.root}>
-<BarChart
+<LineChart
 barChartData={this.state}
 label={"Confirmed cases"}
 text={`Total confirmed cases in ${this.state.stateName}`}

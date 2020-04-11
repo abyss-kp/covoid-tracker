@@ -2,7 +2,6 @@ import React from 'react';
 import IndiaCardView from './pages/IndiaCardView'
 import Resources from './pages/About'
 import PersistentDrawerRight from './components/drawer'
-import BarChart from './components/BarChart'
 import CountryView from './pages/CountryView'
 import CityGraphView from './pages/CityGraphView'
 import Loader from './components/Loader'

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bar } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = (theme) => ({
@@ -21,16 +21,15 @@ const styles = (theme) => ({
   }
 });
 
-class BarChart extends React.Component {
+class LineChart extends React.Component {
   render() {
-    console.log(this.props)
     const { classes } = this.props
     const barChartData={
       labels:this.props.barChartData.label,
       datasets: [
         {
           label: this.props.label,
-          backgroundColor: "#96adce",
+          backgroundColor: "#67b0db",
           borderColor: "#2d4f7e",
           borderWidth: 1,
           data: this.props.barChartData.data
@@ -40,7 +39,7 @@ class BarChart extends React.Component {
     return (
       // <div className={classes.chartWrapper}>
       <div className={classes.chartAreaWrapper}>
-        <Bar
+        <Line
           className={classes.canvas}
           data={barChartData}
           width={1000}
@@ -78,4 +77,4 @@ class BarChart extends React.Component {
     );
   }
 }
-export default withStyles(styles)(BarChart)
+export default withStyles(styles)(LineChart)

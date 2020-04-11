@@ -159,7 +159,7 @@ const makeIcons=(text)=>{
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              onClick={() => props.history.goBaack()}
+              onClick={() => props.history.goBack()}
               edge="start"
               className={clsx(classes.menuButton, open && classes.hide)}
             >
