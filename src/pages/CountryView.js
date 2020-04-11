@@ -8,7 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { connect } from 'react-redux';
-import { setCountryList, setLoader } from '../actions/index'
+import { setCountryList, setLoader,hideMessage,showMessage } from '../actions/index'
 const columns = [
   { id: 'country', label: 'Country', minWidth: 10, align: 'left', maxWidth: 50 },
   { id: 'total_cases', label: 'Total', minWidth: 80, align: 'center', },
@@ -72,6 +72,7 @@ function CountryView(props) {
     let time = ""
     props.setLoader(true)
     if (!props.country.data) {
+      props.showMessage("info","Fetching data")
       fetch('https://corona-virus-stats.herokuapp.com/api/v1/cases/countries-search?limit=209')
       .then(results => results.json())
       .then(data => {
@@ -83,7 +84,7 @@ function CountryView(props) {
         setRows(rowData)
         setTime(time)
         props.setLoader(false)
-      }).catch(e => alert("An error occured! \n Please reload!"))
+      }).catch(e => props.showMessage("error","An error occured! \n Please try again"))
     }
     else {
       rowData = props.country.data.rows.map(itm => createData(
@@ -139,7 +140,9 @@ function CountryView(props) {
 }
 const mapDispatchToProps = (dispatch) => ({
   setCountryList: (data) => dispatch(setCountryList(data)),
-  setLoader: (data) => dispatch(setLoader(data)),
+  setLoader: (data) => dispatch(setLoader(data)),  
+  showMessage: (type,msg) => dispatch(showMessage(type,msg)),
+  hideMessage: (data) => dispatch(hideMessage(data)),
 });
 function mapStateToProps(state) {
   return {

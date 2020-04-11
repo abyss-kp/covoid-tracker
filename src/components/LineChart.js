@@ -3,16 +3,6 @@ import { Line } from 'react-chartjs-2';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = (theme) => ({
-  // chartWrapper: {
-  //   position: 'relative'
-  // },
-
-  // canvas: {
-  //   position: 'absolute',
-  //   left: 0,
-  //   top: 0,
-  //   pointerEvents: 'none'
-  // },
 
   chartAreaWrapper: {
     width: 'auto',
@@ -23,7 +13,6 @@ const styles = (theme) => ({
 
 class LineChart extends React.Component {
   render() {
-    console.log(this.props.datasets)
     const { classes } = this.props
     const barChartData = {
       labels: this.props.labels,

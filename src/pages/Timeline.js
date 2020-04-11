@@ -3,9 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { setCaseSeries, setLoader } from '../actions/index'
+import { setCaseSeries, setLoader,hideMessage,showMessage } from '../actions/index'
 import LineChart from '../components/LineChart'
-import TrendingDownIcon from '@material-ui/icons/TrendingDown';
 const styles = (theme) => ({
   root: {
     width: '100%',
@@ -66,12 +65,13 @@ class TimeSeries extends React.Component {
   async componentDidMount() {
     this.props.setLoader(true)
     if (!this.props.series.length) {
+      this.props.showMessage("info","Fetching data")
       await axios.get(`https://api.covid19india.org/data.json`)
         .then(res => {
           let response = res.data
           this.props.setCaseSeries(response.cases_time_series)
           this.makeGraphData(response.cases_time_series)
-        }).catch(e => alert("An error occured! \n Please reload!"))
+        }).catch(e =>this.props.showMessage("error","An error occured! \n Please try again"))
     } else
       this.makeGraphData(this.props.series)
   }
@@ -90,7 +90,9 @@ class TimeSeries extends React.Component {
 }
 const mapDispatchToProps = (dispatch) => ({
   setCaseSeries: (data) => dispatch(setCaseSeries(data)),
-  setLoader: (data) => dispatch(setLoader(data)),
+  setLoader: (data) => dispatch(setLoader(data)),  
+  showMessage: (type,msg) => dispatch(showMessage(type,msg)),
+  hideMessage: (data) => dispatch(hideMessage(data)),
 });
 function mapStateToProps(state) {
   return {

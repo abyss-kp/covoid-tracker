@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { setCaseSeries, setStateWiseData, setHeaderSearch,setLoader,setCountryCities } from '../actions/index'
+import { setCaseSeries, setStateWiseData, setHeaderSearch,setLoader,setCountryCities,hideMessage,showMessage } from '../actions/index'
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -79,6 +79,7 @@ class IndiaCardView extends React.Component {
     this.props.setLoader(true)
     if(!this.props.districts.length)
     {
+      this.props.showMessage("info","Fetching data")
     await axios.get(`https://api.covid19india.org/data.json`)
       .then(res => {
         let response = res.data
@@ -89,7 +90,7 @@ class IndiaCardView extends React.Component {
           this.props.setCaseSeries(response.cases_time_series)
           this.props.setCountryCities(state)
         })
-      }).catch(e=>alert("An error occured! \n Please reload!"))
+      }).catch(e=>this.props.showMessage("error","An error occured! \n Please try again"))
     }else
     this.setState({rows:this.props.states})
     if(!this.props.districts.length)
@@ -100,7 +101,7 @@ class IndiaCardView extends React.Component {
           this.props.setLoader(false)
           this.props.setStateWiseData(response)
         })
-      }).catch(e=>alert("An error occured! \n Please reload!"))
+      }).catch(e=>this.props.showMessage("error","An error occured! \n Please try again"))
       else
       {
         this.setState({ cities: this.props.districts })
@@ -174,6 +175,8 @@ const mapDispatchToProps = (dispatch) => ({
   setLoader: (data) => dispatch(setLoader(data)),
   setStateWiseData: (data) => dispatch(setStateWiseData(data)),
   setHeaderSearch: (data) => dispatch(setHeaderSearch(data)),
-  setCountryCities: (data) => dispatch(setCountryCities(data))
+  setCountryCities: (data) => dispatch(setCountryCities(data)),
+  showMessage: (type,msg) => dispatch(showMessage(type,msg)),
+  hideMessage: (data) => dispatch(hideMessage(data)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(IndiaCardView))

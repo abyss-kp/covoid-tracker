@@ -6,6 +6,7 @@ import CountryView from './pages/CountryView'
 import CityGraphView from './pages/CityGraphView'
 import TimeSeries from './pages/Timeline'
 import Loader from './components/Loader'
+import MsgSnackbar from './components/snackbar'
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import theme from './theme'
@@ -23,6 +24,7 @@ class App extends React.Component {
         <Router history={Router.browserHistory}>
           <PersistentDrawerRight />
           <Loader/>
+          <MsgSnackbar/>
           <Switch>
             <Route exact path="/All" component={CountryView} />
             <Route exact path="/India" component={IndiaCardView} />

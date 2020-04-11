@@ -39,3 +39,14 @@ export const setLoader= (bool) => ({
   type: SET_LOADER,
   payload: bool
 });
+export const SHOW_SNACKBAR="SHOW_SNACKBAR"
+export const showMessage= (mode,msg) => ({
+  type: SHOW_SNACKBAR,
+  payload: msg,
+  mode
+});
+export const HIDE_SNACKBAR="HIDE_SNACKBAR"
+export const hideMessage= () => ({
+  type: HIDE_SNACKBAR,
+  payload:false
+});
