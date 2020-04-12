@@ -80,9 +80,7 @@ MySnackbarContentWrapper.propTypes = {
 
 function MsgSnackbar(props) {
   const [open, setOpen] = React.useState(props.message);
-  console.log(open)
   React.useEffect(() => {
-    console.log(props.message)
     if(props.message && props.message.msg)
     setOpen(true)
   },[props.message]);

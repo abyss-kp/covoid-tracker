@@ -85,10 +85,10 @@ class IndiaCardView extends React.Component {
         let response = res.data
         let state = response.statewise.filter(e => (!["Dadra and Nagar Haveli",
           "Daman and Diu", "Lakshadweep", "Meghalaya", "Nagaland", "Sikkim", "Tripura"].includes(e.state)))
-        this.setState({ statesData: response.statewise, rows: state }, () => { //time: response.key_values[0].lastupdatedtime,
           //set data in redux
           this.props.setCaseSeries(response.cases_time_series)
           this.props.setCountryCities(state)
+          this.setState({ statesData: response.statewise, rows: state }, () => { //time: response.key_values[0].lastupdatedtime,
         })
       }).catch(e=>this.props.showMessage("error","An error occured! \n Please try again"))
     }else
@@ -101,7 +101,7 @@ class IndiaCardView extends React.Component {
           this.props.setLoader(false)
           this.props.setStateWiseData(response)
         })
-      }).catch(e=>this.props.showMessage("error","An error occured! \n Please try again"))
+      }).catch(e=>this.props.showMessage("error","An error occured while fetching districts! \n Please try again"))
       else
       {
         this.setState({ cities: this.props.districts })

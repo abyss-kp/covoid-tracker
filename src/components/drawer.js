@@ -26,6 +26,7 @@ import { connect } from 'react-redux';
 import HomeIcon from '@material-ui/icons/Home';
 import TimelineIcon from '@material-ui/icons/Timeline';
 import { setHeaderSearch } from '../actions/index'
+import Datepicker from './Datepicker'
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -148,7 +149,8 @@ const makeIcons=(text)=>{
  else if(text==="Timeline")
  return <TimelineIcon/>
 }
-const searchMenu=["/","/All","/India"]
+const searchMenuVisible=["/","/All","/India"]
+const hideTitle=["/Timeline"]
   return (
     <ClickAwayListener onClickAway={handleDrawerClose}>
       <div className={classes.root} >
@@ -169,10 +171,17 @@ const searchMenu=["/","/All","/India"]
             >
               <ArrowBackIcon />
             </IconButton>}
-            <Typography variant="h6" noWrap className={classes.title} style={{ textAlignLast: "center" }}>
+
+            {!hideTitle.includes(props.history.location.pathname) ?
+              <Typography variant="h6" noWrap className={classes.title} style={{ textAlignLast: "center" }}>
               COVID 19 Updates
+          </Typography>:
+              <Typography variant="h6" noWrap className={classes.title} style={{ textAlignLast: "center" ,color:'white'}}>
+              <Datepicker/>
           </Typography>
-         {searchMenu.includes(props.history.location.pathname)  && <div className={classes.search}>
+          }
+
+         {searchMenuVisible.includes(props.history.location.pathname)  && <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
