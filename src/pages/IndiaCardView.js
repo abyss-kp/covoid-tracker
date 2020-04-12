@@ -88,6 +88,7 @@ class IndiaCardView extends React.Component {
           //set data in redux
           this.props.setCaseSeries(response.cases_time_series)
           this.props.setCountryCities(state)
+          this.props.hideMessage();
           this.setState({ statesData: response.statewise, rows: state }, () => { //time: response.key_values[0].lastupdatedtime,
         })
       }).catch(e=>this.props.showMessage("error","An error occured! \n Please try again"))

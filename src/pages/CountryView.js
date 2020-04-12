@@ -83,6 +83,7 @@ function CountryView(props) {
         props.setCountryList(data)
         setRows(rowData)
         setTime(time)
+        props.hideMessage();
         props.setLoader(false)
       }).catch(e => props.showMessage("error","An error occured! \n Please try again"))
     }
@@ -142,7 +143,7 @@ const mapDispatchToProps = (dispatch) => ({
   setCountryList: (data) => dispatch(setCountryList(data)),
   setLoader: (data) => dispatch(setLoader(data)),  
   showMessage: (type,msg) => dispatch(showMessage(type,msg)),
-  hideMessage: (data) => dispatch(hideMessage(data)),
+  hideMessage: () => dispatch(hideMessage()),
 });
 function mapStateToProps(state) {
   return {
