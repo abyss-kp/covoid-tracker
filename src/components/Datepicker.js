@@ -40,7 +40,8 @@ function Datepicker(props) {
     <MuiPickersUtilsProvider utils={DateFnsUtils} style={{ color: 'white' }}>
       <Grid container justify="space-around">
         <KeyboardDatePicker
-        minDate={new Date("02/01/2020")}
+          minDate={new Date("02/01/2020")}
+          maxDate={new Date(Date.now() - 2*24 * 60 * 60 * 1000)}
           disableToolbar
           variant="inline"
           format="dd/MM/yyyy"
@@ -64,7 +65,8 @@ function Datepicker(props) {
           disableToolbar
           id="date-picker-inline"
           label="End Date"
-          maxDate={new Date(Date.now() - 24*60*60*1000)}
+          minDate={new Date("02/04/2020")}
+          maxDate={new Date(Date.now() - 24 * 60 * 60 * 1000)}
           format="dd/MM/yyyy"
           value={endDate}
           onChange={handleEndDateChange}
