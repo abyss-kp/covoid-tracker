@@ -23,19 +23,19 @@ function Datepicker(props) {
   const [startDate, setStartDate] = React.useState(props.startDate);
   const [endDate, setEndDate] = React.useState(props.endDate);
   const handleStartDateChange = (date) => {
-    console.log(date)
+    console.log(date.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }))
     if (date !== "Invalid Date") {
-      setStartDate(date.toLocaleDateString())
-      props.setStartDate(date.toLocaleDateString())
+      setStartDate(date.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }))
+      props.setStartDate(date.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }))
     }
   };
   const handleEndDateChange = (date) => {
     if (date !== "Invalid Date") {
-      setEndDate(date.toLocaleDateString())
-      props.setEndDate(date.toLocaleDateString())
+      setEndDate(date.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }))
+      props.setEndDate(date.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }))
     }
   };
-
+console.log(startDate,endDate)
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils} style={{ color: 'white' }}>
