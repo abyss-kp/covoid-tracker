@@ -43,7 +43,7 @@ function Datepicker(props) {
         minDate={new Date("02/01/2020")}
           disableToolbar
           variant="inline"
-          format="MM/dd/yyyy"
+          format="dd/MM/yyyy"
           margin="normal"
           id="date-picker-inline"
           label="Start date"
@@ -65,7 +65,7 @@ function Datepicker(props) {
           id="date-picker-inline"
           label="End Date"
           maxDate={new Date(Date.now() - 24*60*60*1000)}
-          format="MM/dd/yyyy"
+          format="dd/MM/yyyy"
           value={endDate}
           onChange={handleEndDateChange}
           InputProps={{ classes }}
