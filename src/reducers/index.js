@@ -1,20 +1,19 @@
-import { SET_COUNTRIES,SET_COUNTRY_CITIES ,SET_SELECTED_COUNTRY_CITY,
-  SET_STATE_WISE_CITY_DATA,SET_CASE_SERIES,SET_HEADER_SEARCH,
-  SET_LOADER,SHOW_SNACKBAR,HIDE_SNACKBAR} from '../actions/index'
+import {
+  SET_COUNTRIES, SET_COUNTRY_CITIES, SET_SELECTED_COUNTRY_CITY,
+  SET_STATE_WISE_CITY_DATA, SET_CASE_SERIES, SET_HEADER_SEARCH,
+  SET_LOADER, SHOW_SNACKBAR, HIDE_SNACKBAR
+} from '../actions/index'
+import datepicker from './datepicker'
 import { combineReducers } from 'redux';
 
 const initialState = {
   // states:{},
   countries: [],
-  // selectedCountryCity:{
-  //   country:"",
-  //   city:""
-  // },
-  statewise:[],
-  caseSeries:[],
-  searchField:"",
-  message:false,
-  loader:false
+  statewise: [],
+  caseSeries: [],
+  searchField: "",
+  message: false,
+  loader: false
 }
 function rootReducer(state = initialState, action) {
   switch (action.type) {
@@ -23,54 +22,55 @@ function rootReducer(state = initialState, action) {
         ...state,
         countries: action.payload
       }
-      case SET_COUNTRY_CITIES:
+    case SET_COUNTRY_CITIES:
       return {
         ...state,
         states: action.payload
       }
-      // case SET_SELECTED_COUNTRY_CITY:
-      // return {
-      //   ...state,
-      //   selectedCountryCity: action.payload
-      // }
-      case SET_STATE_WISE_CITY_DATA:
+    // case SET_SELECTED_COUNTRY_CITY:
+    // return {
+    //   ...state,
+    //   selectedCountryCity: action.payload
+    // }
+    case SET_STATE_WISE_CITY_DATA:
       return {
         ...state,
         statewise: action.payload
       }
-      case SET_CASE_SERIES:
+    case SET_CASE_SERIES:
       return {
         ...state,
         caseSeries: action.payload
       }
-      case SET_HEADER_SEARCH:
+    case SET_HEADER_SEARCH:
       return {
         ...state,
         searchField: action.payload
       }
-      case SET_LOADER:
+    case SET_LOADER:
       return {
         ...state,
         loader: action.payload
       }
-      case SHOW_SNACKBAR:
+    case SHOW_SNACKBAR:
       return {
         ...state,
         message: {
-          type:action.mode,
-          msg:action.payload
+          type: action.mode,
+          msg: action.payload
         }
       }
-      case HIDE_SNACKBAR:
+    case HIDE_SNACKBAR:
       return {
         ...state,
         message: false
       }
-      default:
-        return state
+    default:
+      return state
   }
 }
 
 export default combineReducers({
-  rootReducer
+  rootReducer,
+  dateSearch: datepicker
 });

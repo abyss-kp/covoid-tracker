@@ -1,0 +1,11 @@
+export const SET_START_DATE="SET_START_DATE"
+export const setStartDate = (date) => ({
+  type: SET_START_DATE,
+  payload: date
+});
+
+export const SET_END_DATE="SET_END_DATE"
+export const setEndDate = (date) => ({
+  type: SET_END_DATE,
+  payload: date
+});
