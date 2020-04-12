@@ -9,7 +9,6 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import { makeStyles } from "@material-ui/core/styles"
-
 const useStyles = makeStyles({
   input: {
     cursor: 'not-allowed',
@@ -43,12 +42,12 @@ console.log(startDate,endDate)
         <KeyboardDatePicker
           minDate={new Date("02/01/2020")}
           maxDate={new Date(Date.now() - 2*24 * 60 * 60 * 1000).toLocaleDateString('en-US')}
-          // disableToolbar
-          // variant="inline"
+          disableToolbar
+          variant="inline"
+          id="date-picker-inline"
           format="MMM/dd/yyyy"
           margin="normal"
-          // id="date-picker-inline"
-          id="date-picker-dialog"
+          // id="date-picker-dialog"
           label="Start date"
           InputProps={{ classes }}
           value={startDate}
@@ -63,10 +62,10 @@ console.log(startDate,endDate)
         />
         <KeyboardDatePicker
           margin="normal"
-          // variant="inline"
-          // disableToolbar
-          id="date-picker-dialog"
-          // id="date-picker-inline"
+          variant="inline"
+          disableToolbar
+          id="date-picker-inline"
+          // id="date-picker-dialog"
           label="End Date"
           minDate={new Date("02/04/2020")}
           maxDate={new Date(Date.now() - 24 * 60 * 60 * 1000).toLocaleDateString('en-US')}
