@@ -83,7 +83,6 @@ function CountryView(props) {
         props.setCountryList(data)
         setRows(rowData)
         setTime(time)
-        props.hideMessage();
         props.setLoader(false)
       }).catch(e => props.showMessage("error","An error occured! \n Please try again"))
     }
