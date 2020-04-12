@@ -43,11 +43,12 @@ function Datepicker(props) {
         <KeyboardDatePicker
           minDate={new Date("02/01/2020")}
           maxDate={new Date(Date.now() - 2*24 * 60 * 60 * 1000).toLocaleDateString('en-US')}
-          disableToolbar
-          variant="inline"
+          // disableToolbar
+          // variant="inline"
           format="MMM/dd/yyyy"
           margin="normal"
-          id="date-picker-inline"
+          // id="date-picker-inline"
+          id="date-picker-dialog"
           label="Start date"
           InputProps={{ classes }}
           value={startDate}
@@ -62,9 +63,10 @@ function Datepicker(props) {
         />
         <KeyboardDatePicker
           margin="normal"
-          variant="inline"
-          disableToolbar
-          id="date-picker-inline"
+          // variant="inline"
+          // disableToolbar
+          id="date-picker-dialog"
+          // id="date-picker-inline"
           label="End Date"
           minDate={new Date("02/04/2020")}
           maxDate={new Date(Date.now() - 24 * 60 * 60 * 1000).toLocaleDateString('en-US')}
