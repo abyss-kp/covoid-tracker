@@ -23,6 +23,7 @@ function Datepicker(props) {
   const [startDate, setStartDate] = React.useState(props.startDate);
   const [endDate, setEndDate] = React.useState(props.endDate);
   const handleStartDateChange = (date) => {
+    console.log(date)
     if (date !== "Invalid Date") {
       setStartDate(date.toLocaleDateString())
       props.setStartDate(date.toLocaleDateString())
@@ -41,10 +42,10 @@ function Datepicker(props) {
       <Grid container justify="space-around">
         <KeyboardDatePicker
           minDate={new Date("02/01/2020")}
-          maxDate={new Date(Date.now() - 2*24 * 60 * 60 * 1000)}
+          maxDate={new Date(Date.now() - 2*24 * 60 * 60 * 1000).toLocaleDateString('en-US')}
           disableToolbar
           variant="inline"
-          format="dd/MMM/yyyy"
+          format="MMM/dd/yyyy"
           margin="normal"
           id="date-picker-inline"
           label="Start date"
@@ -67,7 +68,7 @@ function Datepicker(props) {
           label="End Date"
           minDate={new Date("02/04/2020")}
           maxDate={new Date(Date.now() - 24 * 60 * 60 * 1000).toLocaleDateString('en-US')}
-          format="dd/MMM/yyyy"
+          format="MMM/dd/yyyy"
           value={endDate}
           onChange={handleEndDateChange}
           InputProps={{ classes }}
