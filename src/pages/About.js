@@ -8,8 +8,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
-import EmailIcon from '@material-ui/icons/Email';
-import PhoneIcon from '@material-ui/icons/Phone';
+import LanguageIcon from '@material-ui/icons/Language';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -82,7 +81,7 @@ export default function ControlledExpansionPanels() {
           aria-controls="panel4bh-content"
           id="panel4bh-header"
         >
-          <Typography className={classes.heading}>Connect </Typography>
+          <Typography className={classes.heading}>Connect on</Typography>
           <Typography className={classes.secondaryHeading}>
             Social Media
           </Typography>
@@ -93,8 +92,7 @@ export default function ControlledExpansionPanels() {
             <a href="https://www.instagram.com/_kapi1/" target="_blank" ><InstagramIcon /></a> &emsp;&emsp;
             <a href="https://www.linkedin.com/in/kapil-pandey-aa175b12a/" target="_blank" ><LinkedInIcon /></a>&emsp;&emsp;
             <a href="https://stackoverflow.com/users/11693215/kapil-pandey" target="_blank" ><QuestionAnswerIcon /></a>&emsp;&emsp; 
-            {/* <a href="mailto:kapil**pandey@gmail.com?Subject=Awesome%20Site😁" target="_top"><EmailIcon/></a>&emsp;&emsp; 
-            <a href="tel:963*****66"><PhoneIcon/></a> */}
+            <a href="https://kapilpandey.netlify.app/" target="_blank" ><LanguageIcon /></a>&emsp;&emsp; 
           </Typography>
         </ExpansionPanelDetails>
       </ExpansionPanel>
